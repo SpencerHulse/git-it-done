@@ -6,9 +6,13 @@ let getRepoName = () => {
   let queryString = document.location.search;
   let repoName = queryString.split("=")[1];
 
-  getRepoIssues(repoName);
-
-  repoNameEl.textContent = repoName;
+  if (repoName) {
+    getRepoIssues(repoName);
+    repoNameEl.textContent = repoName;
+  } else {
+    //if not repo was given, redirect to the homepage
+    document.location.replace("./index.html");
+  }
 };
 
 let getRepoIssues = (repo) => {
@@ -27,7 +31,8 @@ let getRepoIssues = (repo) => {
         }
       });
     } else {
-      alert("There was a problem with your request!");
+      //if unsuccessful, return to the homepage
+      document.location.replace("./index.html");
     }
   });
 };
